@@ -1,0 +1,264 @@
+:root{ --bg:#0a0f14; --white:#eaffff; --neon:#62c8ff; --deep:#0b1b28; --deep2:#0e2433; --grid:#62c8ff33; --gold:#e6d28a; --goldGlow:0 0 8px rgba(230,210,138,.55);}  
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:radial-gradient(1100px 760px at 70% 18%, #0c151c 0%, #0a0f14 60%, #070a0d 100%) fixed;color:var(--white);font-family:"Orbitron","Share Tech Mono",monospace;letter-spacing:.2px;overflow:auto;
+.stage{width:100%;min-height:100vh;padding:8px;display:flex;align-items:stretch;justify-content:stretch}
+.screen{position:relative;width:100%;background:linear-gradient(160deg,var(--deep),var(--deep2));border-radius:14px;box-shadow:0 0 30px rgba(98,200,255,.35) inset,0 0 0 2px #62c8ff33 inset;padding:8px;display:grid;grid-template-rows:auto auto 1fr;gap:8px;overflow:hidden}
+
+/* Topbar */
+.topbar{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,rgba(11,27,40,.55),rgba(11,27,40,.35));border:1px solid var(--grid);border-radius:10px;padding:6px 8px}
+.navBtns{display:flex;gap:8px;flex-wrap:wrap}
+.navBtn{background:#0d2232;color:#eaffff;border:1px solid #62c8ff66;padding:6px 10px;border-radius:8px;cursor:pointer;font-family:"Orbitron","Share Tech Mono",monospace;font-size:12px}
+.navBtn.active{background:#eaffff;color:#0d2232;border-color:#eaffff}
+.topStats{display:flex;gap:10px;align-items:center;font-size:12px}
+.chip{background:#0d2232;border:1px solid #62c8ff66;padding:4px 8px;border-radius:999px;font-size:12px}
+
+/* Mini notification */
+.notifyMini{display:flex;align-items:center;gap:8px;background:linear-gradient(180deg,rgba(11,27,40,.55),rgba(11,27,40,.35));border:1px solid var(--grid);border-radius:10px;padding:6px}
+.notifyMini .ttl{margin-right:auto;padding:2px 8px;border:1px solid #62c8ff66;border-radius:6px;background:#0d2232;color:#eaffff;letter-spacing:1px;font-size:12px}
+.notifyMini ul{list-style:none;margin:0;padding:0;max-height:3.2em;overflow:hidden}
+.notifyMini li{font-size:12px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.9}
+.badge{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;border:1px solid #62c8ff88;box-shadow:0 0 6px #62c8ff88;color:#62c8ff;font-size:11px}
+.langBtn{background:#0d2232;color:#eaffff;border:1px solid #62c8ff66;padding:4px 8px;border-radius:8px;cursor:pointer;font-family:"Orbitron","Share Tech Mono",monospace;font-size:12px}
+
+/* Layout */
+.grid{display:grid;grid-template-columns:1fr;gap:8px;min-height:0}
+.cols{display:grid;grid-template-columns:1.2fr .8fr;gap:12px;min-height:0}
+.panel{background:#0b2433;border:1px solid var(--grid);border-radius:10px;padding:8px;min-height:0;overflow:auto}
+.panel h2{margin:0 0 6px;font-size:14px;color:#d9f6ff;text-shadow:0 0 6px #62c8ff55;display:flex;align-items:center;justify-content:space-between}
+
+.meta{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;font-size:12px}
+.meta div{background:#092234;border:1px solid #62c8ff33;border-radius:8px;padding:6px;color:#d6f8ff;display:flex;align-items:center;justify-content:space-between}
+
+.xp{display:grid;grid-template-columns:140px 1fr 54px;align-items:center;gap:10px;font-size:16px;font-weight: bold;     /* 🚀 加粗 */
+  margin: 12px 0;        /* 🚀 上下留白更明顯 */}
+.xp #lblXP {
+  font-size: 16px;       /* 標籤跟著變大 */
+  font-weight: bold;
+}
+.bar{height:14px;background:#0a2a3c;border:1px solid #62c8ff55;border-radius:999px;overflow:hidden;box-shadow:0 0 6px rgba(98,200,255,.2) inset}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#bfe5ff,#62c8ff);box-shadow:0 0 6px #62c8ff;transition:width .9s ease-in-out}
+
+.stat{display:grid;grid-template-columns:minmax(160px,auto) 1fr 56px 36px;align-items:center;gap:8px;font-size:12px}
+.stat .bar{width:72%; margin-left:auto}
+.stat .val{font-variant-numeric:tabular-nums; text-align:left}
+.skillName{background:#092234;border:1px solid #62c8ff33;border-radius:8px;padding:2px 6px;color:var(--gold);text-shadow:var(--goldGlow);white-space:nowrap;display:inline-flex;align-items:center;gap:6px;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.skillName .lv{opacity:.9;font-size:11px;padding:1px 6px;border:1px solid #62c8ff55;border-radius:6px;background:#0d2232}
+
+/* Tasks */
+.taskItem{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:6px;padding:6px 0;border-bottom:1px dashed #62c8ff33}
+.taskItem:last-child{border-bottom:none}
+.taskname{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.btn{background:#0d2232;color:#eaffff;border:1px solid #62c8ff66;padding:6px 10px;border-radius:8px;cursor:pointer;font-family:"Orbitron","Share Tech Mono",monospace;font-size:12px}
+.btn:hover{filter:brightness(1.12)}
+.btn.done{background:#eaffff;color:#0d2232;border-color:#eaffff}
+.btn.small{padding:4px 8px;font-size:11px}
+.xpGold{color:var(--gold);text-shadow:var(--goldGlow)}
+
+/* Character view */
+#viewCharacter{display:grid;grid-template-rows:1fr auto;gap:8px;min-height:0}
+.charStage{position:relative;display:grid;place-items:center;min-height:55vh;background:
+  radial-gradient(420px 220px at 50% 65%, rgba(98,200,255,.15), rgba(98,200,255,0) 60%),
+  radial-gradient(1200px 900px at 50% -10%, rgba(255,255,255,.05), rgba(255,255,255,0) 60%);
+  border:1px solid var(--grid);border-radius:12px}
+.charRing{position:absolute;inset:auto 0 16px 0;margin:auto;width:min(72vw,360px);height:min(72vw,360px);border-radius:50%;box-shadow:0 0 0 2px #62c8ff33 inset,0 0 40px #62c8ff22}
+.charWrap{position:relative;display:grid;place-items:center;transform:translateY(-8px)}
+.avatar{width:min(60vw,320px);height:auto;filter:drop-shadow(0 6px 16px rgba(0,0,0,.45))}
+.hidden{display:none !important}
+
+/* Upload block now inside Character view */
+.uploadPanel .field{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.uploadPanel input[type=file]{height:38px;background:#0d2232;border:1px solid #62c8ff66;border-radius:8px;color:#eaffff;padding:0 8px;font-family:"Orbitron","Share Tech Mono",monospace}
+
+/* Settings / Profile */
+.field{display:flex;flex-direction:column;gap:4px;margin-top:4px}
+.field label{font-size:12px;opacity:.9}
+.field input,.field select{height:42px;background:#0d2232;border:1px solid #62c8ff66;border-radius:8px;color:#eaffff;padding:0 8px;font-family:"Orbitron","Share Tech Mono",monospace}
+#profileWrap{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.radarPanel{border:1px solid var(--grid);background:#0d2232;border-radius:10px;padding:8px}
+.radarPanel h3{margin:0 0 6px;font-size:13px;opacity:.9}
+#profileSkills{border:1px solid var(--grid);background:#0d2232;border-radius:10px;padding:8px}
+#profileSkills h3{margin:0 0 6px;font-size:13px;opacity:.9}
+canvas{image-rendering:crisp-edges}
+
+/* Problem area */
+#problemArea{position:relative;margin-top:8px}
+.problemBox{position:relative;border:1px solid var(--grid);border-radius:10px;background:#0d2232;padding:10px;min-height:120px}
+.problemBox h3{margin:0 0 6px;font-size:13px;opacity:.95}
+.problemBody{font-size:13px;line-height:1.5}
+.opt{display:flex;align-items:center;gap:8px;margin:4px 0}
+.opt input[type=radio]{accent-color:#62c8ff}
+.problemActions{position:absolute;right:10px;bottom:10px;display:flex;gap:8px}
+.msg{margin-top:6px;font-size:12px}
+.msg.ok{color:#9ef5ff}
+.msg.err{color:#ff5d7a}
+
+@media (max-width:920px){ .cols{grid-template-columns:1fr;} #profileWrap{grid-template-columns:1fr;} }
+
+/* === Scale-up: 全站字體與面板視覺微放大（不影響雷達半徑/畫布） === */
+:root{
+  --fs: 14px;      /* 全站基準字體（原本多為 12px）*/
+  --fs-sm: 13px;   /* 小字 */
+  --fs-lg: 16px;   /* 區塊標題 */
+}
+
+/* 基礎字級 */
+body{ font-size: var(--fs); }
+
+/* 常見使用 12px 的元件 → 一起抬到 14px（看起來更清楚） */
+.navBtn,
+.topStats,
+.chip,
+.notifyMini .ttl,
+.notifyMini li,
+.langBtn,
+.meta,
+.xp,
+.stat,
+.btn,
+.field label,
+.msg{
+  font-size: var(--fs);
+}
+
+/* 區塊標題（原 14px）→ 16px */
+.panel h2{ font-size: var(--fs-lg); }
+
+/* 雷達外框的區塊標題（原 13px）→ 跟著基準 */
+.radarPanel h3{ font-size: var(--fs); }
+
+/* 讓「雷達圖的總框框」更有份量：加內距+邊框厚度 */
+.radarPanel{
+  padding: 10px;                 /* 原本 8px → 12px */
+  border-width: 1.5px;             /* 原設1px → 2px，看起來更有存在感 */
+  box-shadow: 0 0 0 1px #62c8ff33 inset; /* 輕內框，霓虹感更明顯 */
+}
+
+/* 讓整個畫面稍微放大但不擠：主要容器留一點呼吸 */
+.stage{ padding: 10px; }         /* 原 8px → 12px（全局微放大感） */
+
+/* 手機時也維持較大的字體（可選） */
+@media (max-width: 480px){
+  :root{ --fs: 15px; --fs-sm: 14px; --fs-lg: 17px; }
+}
+
+/* === Bigger Problem Area (作題區放大) === */
+#problemArea{
+  padding: 12px;           /* 外框更厚實 */
+  border-width: 2px;       /* 外框線條更有存在感 */
+}
+
+#problemArea .problemBox{
+  padding: 14px;           /* 內容留白更多 */
+  min-height: 260px;       /* 高度加大（原本 120px）*/
+  border-width: 2px;       /* 內框也加粗一點（視覺更大）*/
+}
+
+#problemArea .problemBox h3{
+  font-size: 18px;         /* 題目字體稍微放大 */
+}
+
+#problemArea .problemBody{
+  font-size: 16px;         /* 內文更好讀 */
+  line-height: 1.7;
+}
+
+#problemArea .problemActions{
+  right: 14px;             /* 跟著 padding 往外移一點 */
+  bottom: 14px;
+}
+
+/* 作題區：限制最大寬度並置中 */
+#problemArea{
+  max-width: 800px;      /* ← 想更窄就 640/600 */
+  margin-right: auto;
+}
+
+/* 如果你之前把整體欄位比例放大了，這裡也一起調回來 */
+@media (min-width: 999px){
+  .cols{ grid-template-columns: 1.3fr .9fr; } /* 左主欄略窄，右欄略寬 */
+}
+
+/* 技能列：Grid 四欄 */
+.stat{
+  display: grid;
+  grid-template-columns: 200px 60px 3fr) 50px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+/* 名稱框 */
+.stat .name{
+  text-align: center;
+  padding: 4px 6px;
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+/* 等級框 */
+.stat .level{
+  text-align: center;
+  font-weight: bold;
+  color: var(--gold);
+}
+
+/* 經驗條 */
+.stat .bar{
+  width: 100%;       /* 🚀 撐滿 grid cell */
+  height: 14px;
+  background: #233;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.stat .fill{
+  height: 100%;
+  background: var(--neon);
+}
+
+/* 百分比 */
+.stat .pct{
+  text-align: right;
+  font-weight: bold;
+  color: var(--gold);
+}
+
+/* 手機直立模式修正：完整顯示，不切字 */
+@media screen and (max-width: 480px) and (orientation: portrait) {
+  html, body {
+    width: 100%;
+    max-width: 100vw;      /* 不允許超過螢幕 */
+    overflow-x: hidden;    /* 禁止橫向捲動 */
+    overflow-y: auto;      /* 當內容變多，允許上下捲動 */
+  }
+  
+.stage, .screen {
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  border-radius: 8; /* 如果要貼邊+圓角，這裡調成 8px、10px 之類 */
+}
+
+  .panel, #problemArea, #problemBox, .problemBody, .msg {
+    white-space: normal;       /* 自動換行 */
+    word-wrap: break-word;     /* 舊版支援 */
+    overflow-wrap: break-word; /* 現代瀏覽器 */
+  }
+}
+
+     /* 答題框 */
+#problemBody input,
+#problemBody textarea {
+  font-size: 16px;
+}
+
+@media (max-width: 480px) {
+  #radar {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100%;
+  }
+}
