@@ -5,7 +5,7 @@ import { needFor, pick3, STORAGE_KEY, SafeStore } from './scripts/util.js';
 function rankFor(level){
   if(level >= 50) return '王者';
   if(level >= 40) return '翡翠';
-  if(level >= 30) return '白金';
+  if(level >= 30) return '白金'; 
   if(level >= 20) return '金牌';
   if(level >= 10) return '銀牌';
   return '銅牌';
