@@ -1,0 +1,170 @@
+[
+  {
+    "id": "h_daily_1",
+    "skill": "calc",
+    "question": {
+      "zh": "今日任務：找三個可取水的公共點，哪一項不屬於？",
+      "en": "Find three public water points. Which is NOT one?"
+    },
+    "options": [
+      {
+        "zh": "公園飲水機",
+        "en": "Park fountain"
+      },
+      {
+        "zh": "便利商店的販售機",
+        "en": "Vending machine"
+      },
+      {
+        "zh": "社福機構補水點",
+        "en": "Shelter refill point"
+      }
+    ],
+    "answerIndex": 1,
+    "explain": {
+      "zh": "販售機需付費，非免費取水點。",
+      "en": "Vending machines cost money; not a free water source."
+    },
+    "xp": 8
+  },
+  {
+    "id": "h_daily_2",
+    "skill": "algebra",
+    "question": {
+      "zh": "與他人共享資訊時，較佳做法？",
+      "en": "Sharing tips with others, better way?"
+    },
+    "options": [
+      {
+        "zh": "交換等價資訊",
+        "en": "Swap equivalent info"
+      },
+      {
+        "zh": "只索取不分享",
+        "en": "Take and not share"
+      },
+      {
+        "zh": "散播錯誤資訊保護自己",
+        "en": "Spread wrong info"
+      }
+    ],
+    "answerIndex": 0,
+    "explain": {
+      "zh": "互惠共享建立社群安全網。",
+      "en": "Reciprocal sharing builds a safety net."
+    },
+    "xp": 8
+  },
+  {
+    "id": "h_daily_3",
+    "skill": "apply",
+    "question": {
+      "zh": "雨天避難時，哪個材質的地面更不易失溫？",
+      "en": "In rain, which ground keeps you warmer?"
+    },
+    "options": [
+      {
+        "zh": "濕草地",
+        "en": "Wet grass"
+      },
+      {
+        "zh": "乾燥木棧板",
+        "en": "Dry wooden pallet"
+      },
+      {
+        "zh": "水泥地",
+        "en": "Bare concrete"
+      }
+    ],
+    "answerIndex": 1,
+    "explain": {
+      "zh": "木棧板能阻隔地面濕冷。",
+      "en": "A pallet insulates from cold, wet ground."
+    },
+    "xp": 8
+  },
+  {
+    "id": "h_daily_4",
+    "skill": "geom",
+    "question": {
+      "zh": "規劃明日路線時，先標記什麼？",
+      "en": "Planning tomorrow’s route, mark what first?"
+    },
+    "options": [
+      {
+        "zh": "風景拍照點",
+        "en": "Photo spots"
+      },
+      {
+        "zh": "補給與避雨點",
+        "en": "Supplies and rain shelters"
+      },
+      {
+        "zh": "人多吵雜區",
+        "en": "Noisy areas"
+      }
+    ],
+    "answerIndex": 1,
+    "explain": {
+      "zh": "先確保補給與安全點。",
+      "en": "Supplies and safe shelters first."
+    },
+    "xp": 8
+  },
+  {
+    "id": "h_daily_5",
+    "skill": "apply",
+    "question": {
+      "zh": "夜間若被陌生人尾隨，第一步？",
+      "en": "At night you’re being followed. First step?"
+    },
+    "options": [
+      {
+        "zh": "加速跑到更偏僻處",
+        "en": "Run to a more isolated place"
+      },
+      {
+        "zh": "朝人多且有監視器處移動",
+        "en": "Move toward crowds and cameras"
+      },
+      {
+        "zh": "回頭理論",
+        "en": "Confront them"
+      }
+    ],
+    "answerIndex": 1,
+    "explain": {
+      "zh": "往可求助處移動更安全。",
+      "en": "Head to populated, monitored areas."
+    },
+    "xp": 8
+  },
+  {
+    "id": "h_daily_6",
+    "skill": "algebra",
+    "question": {
+      "zh": "以勞務換餐最關鍵的是？",
+      "en": "Trading work for food, the key is?"
+    },
+    "options": [
+      {
+        "zh": "事後再談條件",
+        "en": "Discuss terms later"
+      },
+      {
+        "zh": "事前講清楚內容、時間與報酬",
+        "en": "Set clear terms upfront"
+      },
+      {
+        "zh": "先做再說",
+        "en": "Work first, talk later"
+      }
+    ],
+    "answerIndex": 1,
+    "explain": {
+      "zh": "先講清楚避免糾紛。",
+      "en": "Clear terms reduce disputes."
+    },
+    "xp": 8
+  }
+]
