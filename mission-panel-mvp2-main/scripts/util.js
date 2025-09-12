@@ -1,4 +1,0 @@
-export function needFor(level){return 100 + (Math.max(1, level)-1)*20}
-export function pick3(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a.slice(0,3)}
-export const STORAGE_KEY='one_prof_mvp_v04_math_fix';
-export const SafeStore=(function(){let ok=true;try{const t='__t'+Math.random();localStorage.setItem(t,'1');localStorage.removeItem(t);}catch(e){ok=false}let mem=null;return{load(k){try{return ok?JSON.parse(localStorage.getItem(k)||'null'):(mem?JSON.parse(mem):null)}catch(e){return null}},save(k,v){try{ok?localStorage.setItem(k,JSON.stringify(v)):(mem=JSON.stringify(v))}catch(e){}}}})();
