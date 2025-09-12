@@ -13,7 +13,7 @@ function rankFor(level){
 
 const DEFAULT_DB={
   lang:'zh',
-  me:{name:'',title:'遊民'/* fixed */,cls:'銅牌',level:1,exp:0,coins:200,avatarImg:null},
+  me:{name:'',title:'遊民',cls:'銅牌',level:1,exp:0,coins:200,avatarImg:null},
   cards:{refresh:2},
   login:{streak:0,last:0},
   notifs:['歡迎來到學習任務面板！'],
@@ -86,7 +86,7 @@ const I18N = {
     daily:'核心任務', dailySub:'（每日 20:00 刷新）', side:'日常任務', update:'更新',
     shop:'卡片 / 商城', shopDesc:'刷新卡可用於重新抽核心任務。升級與連續登入可獲得卡片。',
     upload:'上傳角色圖片', choose:'選擇圖片', applyAvatar:'套用至角色介面', clearAvatar:'移除自訂圖片', uploadHint:'圖片將以 base64 儲存於本機（localStorage），不會上傳到網路。',
-    profile:'個人資料', name:'姓名', grade:'年級', radar:'能力雷達圖', skillPanel:'技能一覽',
+    profile:'個人資料', name:'姓名', grade:'職階', radar:'能力雷達圖', skillPanel:'技能一覽',
     clear:'清除', submit:'提交', applied:'已套用', confirmReset:'確定重製資料？', confirmResetEn:'Reset all data?',
     completed:'完成', begin:'開始', wrong:'答錯了，請再試一次', correct:'答對！已發放經驗值', coins:'金幣', cards:'刷新卡',
     loginStreak:'登入連續天數'
@@ -98,7 +98,7 @@ const I18N = {
     daily:'Daily Core', dailySub:'(refresh 20:00)', side:'Side Quests', update:'Reroll',
     shop:'Cards / Shop', shopDesc:'Use refresh cards to reroll core tasks. Earn by leveling and login streaks.',
     upload:'Upload Character Image', choose:'Choose Image', applyAvatar:'Apply to Character', clearAvatar:'Remove Custom Image', uploadHint:'Image stores locally in base64 (localStorage), not uploaded.',
-    profile:'Profile', name:'Name', grade:'Grade', radar:'Ability Radar', skillPanel:'Skills',
+    profile:'Profile', name:'Name', grade:'Rank', radar:'Ability Radar', skillPanel:'Skills',
     clear:'Clear', submit:'Submit', applied:'Applied', confirmReset:'確定重製資料？', confirmResetEn:'Reset all data?',
     completed:'Done', begin:'Start', wrong:'Incorrect, try again.', correct:'Correct! EXP granted.', coins:'Coins', cards:'Refresh Cards',
     loginStreak:'Login Streak'
@@ -145,7 +145,7 @@ const SKILL_NAMES={
   calc: L('資源搜尋','Scavenging'),
   geom: L('路線規劃','Route Planning'),
   algebra: L('交換談判','Barter & Negotiation'),
-  apply: L('自我保護','Self‑Protection')
+  apply: L('自我保護','Self-Protection')
 };
 const gradeSkillsKeys=['calc','geom','algebra','apply'];
 function ensureSkills(){ gradeSkillsKeys.forEach(k=>{ if(!DB.skills[k]) DB.skills[k]={name:SKILL_NAMES[k], xp:0, lvl:1, unlocked:true}; }); }
@@ -154,23 +154,36 @@ function ensureSkills(){ gradeSkillsKeys.forEach(k=>{ if(!DB.skills[k]) DB.skill
 let dailyPool=[], sidePool=[];
 async function loadTasks(){
   const [coreRes, dailyRes] = await Promise.all([
-    fetch('./tasks/core.json'), fetch('./tasks/daily.json')
+    fetch('/tasks/core.json'), fetch('/tasks/daily.json')
   ]);
   const [core, daily] = await Promise.all([coreRes.json(), dailyRes.json()]);
   dailyPool = core;
   sidePool = daily;
 }
-function genDaily(){DB.tasks=pick3(dailyPool).map(d=>({ ...d, done:false }))}
+function genDaily(){DB.tasks=pick3(dailyPool).map(d=>({ ...d, done:false }))} 
 function genSide(){DB.side=pick3(sidePool).map(s=>({ ...s, done:false }))}
 
 // ===== Rewards / Leveling =====
 function onReward(xp,skillKey){
   DB.me.exp += xp;
   let need = needFor(DB.me.level);
-  while(DB.me.exp >= need){ DB.me.exp -= need; DB.me.level++; DB.cards.refresh++; DB.me.coins += 50; DB.me.cls = rankFor(DB.me.level); addNotif(`[Lv Up] Lv.${DB.me.level} 卡 x1 + 金幣 50`); need = needFor(DB.me.level); }
+  while(DB.me.exp >= need){ 
+    DB.me.exp -= need; 
+    DB.me.level++; 
+    DB.cards.refresh++; 
+    DB.me.coins += 50; 
+    DB.me.cls = rankFor(DB.me.level); 
+    addNotif(`[Lv Up] Lv.${DB.me.level} 卡 x1 + 金幣 50`); 
+    need = needFor(DB.me.level); 
+  }
   if(!DB.skills[skillKey]) DB.skills[skillKey]={name:SKILL_NAMES[skillKey]||L(skillKey,skillKey), xp:0, lvl:1, unlocked:true};
-  const s=DB.skills[skillKey]; s.xp = Math.min(100, s.xp + Math.floor(xp));
-  if(s.xp>=100){ s.xp=0; s.lvl=(s.lvl||1)+1; addNotif(`[技能升級] ${getText(s.name)} LV${s.lvl}`); }
+  const s=DB.skills[skillKey]; 
+  s.xp = Math.min(100, s.xp + Math.floor(xp));
+  if(s.xp>=100){ 
+    s.xp=0; 
+    s.lvl=(s.lvl||1)+1; 
+    addNotif(`[技能升級] ${getText(s.name)} LV${s.lvl}`); 
+  }
 }
 
 // ===== Render =====
@@ -307,12 +320,31 @@ btnLang.onclick=()=>{ DB.lang = DB.lang==='zh'?'en':'zh'; addNotif(`Lang: ${DB.l
 // ===== Login streak =====
 function handleLogin(){ const last = new Date(DB.login.last||0); const now=new Date(); const lastDay=last.toDateString(); const today=now.toDateString(); if(today!==lastDay){ DB.login.streak = ( (new Date(+last+86400000)).toDateString()===today ? DB.login.streak+1 : (DB.login.streak?1:1) ); DB.login.last=+now; addNotif(`Login x${DB.login.streak}`); if(DB.login.streak%7===0){ DB.cards.refresh++; addNotif('Weekly streak + card'); } save() } }
 
-// ===== Settings on Profile page (only input fields) =====
-s(){ inputName.value=DB.me.name||''; if(selectRank){ selectRank.innerHTML='<option>銅牌</option><option>銀牌</option><option>金牌</option><option>白金</option><option>翡翠</option><option>王者</option>'; selectRank.value = DB.me.cls || '銅牌'; } const metaS=document.getElementById('metaSettings'); metaS.innerHTML=''; [['姓名',DB.me.name||'-'],['職階',DB.me.cls||'銅牌'],['Lv.',DB.me.level]].forEach(([k,v])=>{ const d=document.createElement('div'); d.className='chip'; d.textContent=`${k}: ${v}`; metaS.appendChild(d) }); }: ${v}`; metaS.appendChild(d) }); }
+// ===== Settings on Profile page =====
+function renderSettings(){
+  inputName.value = DB.me.name || '';
+  if(selectRank){
+    selectRank.innerHTML = '<option>銅牌</option><option>銀牌</option><option>金牌</option><option>白金</option><option>翡翠</option><option>王者</option>';
+    selectRank.value = DB.me.cls || '銅牌';
+  }
+  const metaS=document.getElementById('metaSettings');
+  metaS.innerHTML='';
+  [['姓名',DB.me.name||'-'],['職階',DB.me.cls||'銅牌'],['Lv.',DB.me.level]].forEach(([k,v])=>{
+    const d=document.createElement('div');
+    d.className='chip';
+    d.textContent=`${k}: ${v}`;
+    metaS.appendChild(d);
+  });
+}
 
-// === Apply/Reset moved to Profile page (buttons' IDs unchanged) ===
+// === Apply/Reset ===
 btnApplyTop.onclick=()=>{
-  DB.me.name=(inputName.value||'').trim(); const old=DB.me.cls; DB.me.cls=selectRank.value; if(DB.me.cls!==old){ addNotif(DB.lang==='zh'?`切換年級：${DB.me.cls}`:`Grade -> ${DB.me.cls}`) }
+  DB.me.name=(inputName.value||'').trim();
+  const old=DB.me.cls;
+  DB.me.cls = rankFor(DB.me.level);
+  if(DB.me.cls!==old){
+    addNotif(DB.lang==='zh'?`升職：${DB.me.cls}`:`Rank -> ${DB.me.cls}`);
+  }
   save(); updateAll(); alert(t('applied'));
 }
 btnResetTop.onclick=()=>{ if(confirm(DB.lang==='zh'?t('confirmReset'):t('confirmResetEn'))){ try{ localStorage.removeItem(STORAGE_KEY); }catch(e){} DB=JSON.parse(JSON.stringify(DEFAULT_DB)); save(); location.reload(); } }
@@ -323,19 +355,17 @@ btnApplyAvatar && (btnApplyAvatar.onclick=()=>{ if(DB.me.avatarImg){ addNotif(DB
 btnClearAvatar && (btnClearAvatar.onclick=()=>{ DB.me.avatarImg=null; save(); applyAvatar(); addNotif(DB.lang==='zh'?'已移除自訂圖片':'Custom image removed'); });
 function applyAvatar(){ if(DB.me.avatarImg){ avatarImg.src = DB.me.avatarImg; avatarImg.classList.remove('hidden'); avatarSVG.classList.add('hidden'); } else { avatarImg.src=''; avatarImg.classList.add('hidden'); avatarSVG.classList.remove('hidden'); } }
 
-// ===== Radar Chart (shifted left; labels pushed outward) =====
+// ===== Radar Chart =====
 function drawRadar(){
   const c = radarCanvas; if(!c) return;
   const ctx=c.getContext('2d'); const w=c.width, h=c.height;
   ctx.clearRect(0,0,w,h);
 
-  // 中心點向左移一些，讓整張雷達圖更靠近畫布中線左側
   const cx=w/2 - 14, cy=h/2 + 10;
   const R=120;
   const N=gradeSkillsKeys.length;
   const values=gradeSkillsKeys.map(k=> Math.min(1,(DB.skills[k]?.lvl||1)/5));
 
-  // rings
   ctx.strokeStyle='#62c8ff55'; ctx.fillStyle='#62c8ff16'; ctx.lineWidth=1;
   for(let ring=1; ring<=4; ring++){
     const r=R*ring/4; ctx.beginPath();
@@ -347,7 +377,6 @@ function drawRadar(){
     ctx.closePath(); ctx.stroke();
   }
 
-  // spokes + labels（把標籤半徑外推到 R+26，避免碰到雷達圖）
   ctx.fillStyle='#d6f8ff';
   ctx.font='12px "Share Tech Mono", monospace';
   ctx.textAlign='center';
@@ -361,7 +390,6 @@ function drawRadar(){
     ctx.fillText(label, lx, ly);
   });
 
-  // shape
   ctx.beginPath();
   values.forEach((v,i)=>{
     const ang=-Math.PI/2 + i*2*Math.PI/N; const r=R*v;
