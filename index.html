@@ -16,7 +16,6 @@
       <div class="navBtns">
         <button class="navBtn active" id="btnViewDashboard">任務面板</button>
         <button class="navBtn" id="btnViewCharacter">角色介面</button>
-        <!-- 已合併角色上傳至角色介面，移除「角色上傳」按鈕 -->
         <button class="navBtn" id="btnViewSettings">個人資料</button>
       </div>
       <div class="topStats">
@@ -38,12 +37,13 @@
     <div id="viewDashboard">
       <div class="cols">
         <div class="panel">
-          <h2>
-            <span id="hCharacter">角色概況</span>
-            <!-- 原本的 套用/重置 按鈕已移至「個人資料 > 姓名」下方 -->
-          </h2>
+          <h2><span id="hCharacter">角色概況</span></h2>
           <div class="meta" id="meta"></div>
-          <div class="xp"><div id="lblXP">角色經驗</div><div class="bar" id="charXPWrap"><i id="charXP" data-w="0"></i></div><div id="charXPNum">0%</div></div>
+          <div class="xp">
+            <div id="lblXP">角色經驗</div>
+            <div class="bar" id="charXPWrap"><i id="charXP" data-w="0"></i></div>
+            <div id="charXPNum">0%</div>
+          </div>
 
           <h2 id="hSkills">技能與經驗</h2>
           <div id="skills"></div>
@@ -91,34 +91,15 @@
       </div>
     </div>
 
-    <!-- 視圖：角色介面（已合併上傳功能） -->
+    <!-- 視圖：角色介面 -->
     <div id="viewCharacter" class="hidden">
       <div class="charStage">
         <div class="charRing"></div>
         <div class="charWrap" id="charWrap">
           <img id="avatarImg" class="avatar hidden" alt="角色圖片"/>
-          <svg id="avatarSVG" class="avatar" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-label="預設角色">
-            <defs>
-              <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#8b4a4a"/>
-                <stop offset="1" stop-color="#b46868"/>
-              </linearGradient>
-              <radialGradient id="eye" cx="0.5" cy="0.5" r="0.6">
-                <stop offset="0" stop-color="#fff176"/>
-                <stop offset="0.5" stop-color="#ff7043"/>
-                <stop offset="1" stop-color="#d32f2f"/>
-              </radialGradient>
-            </defs>
-            <ellipse cx="128" cy="96" rx="96" ry="76" fill="url(#hair)" />
-            <circle cx="128" cy="112" r="52" fill="#ffe5d9" stroke="#d9a39a" stroke-width="2"/>
-            <ellipse cx="104" cy="116" rx="18" ry="20" fill="url(#eye)"/>
-            <ellipse cx="152" cy="116" rx="18" ry="20" fill="url(#eye)"/>
-            <path d="M112 136c6 8 26 8 32 0" stroke="#d84315" stroke-width="4" fill="none" stroke-linecap="round"/>
-            <path d="M86 168h84c10 0 18 8 18 18v14c0 6-4 10-10 12-30 10-60 10-100 0-6-2-10-6-10-12v-14c0-10 8-18 18-18z" fill="#e8f0ff" stroke="#9ecbff" stroke-width="2"/>
-          </svg>
+          <svg id="avatarSVG" class="avatar" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"></svg>
         </div>
       </div>
-      <!-- 上傳功能區塊（移入角色介面） -->
       <div class="panel uploadPanel" style="margin-top:8px">
         <h2 id="hUpload">上傳角色圖片</h2>
         <div class="field"><label id="lblChoose">選擇圖片</label><input type="file" id="avatarInput" accept="image/*"/></div>
@@ -126,7 +107,7 @@
           <button class="btn" id="btnApplyAvatar">套用至角色介面</button>
           <button class="btn" id="btnClearAvatar">移除自訂圖片</button>
         </div>
-        <div class="sm" style="opacity:.8;margin-top:6px" id="uploadHint">圖片將以 base64 儲存於本機（localStorage），不會上傳到網路。</div>
+        <div class="sm" style="opacity:.8;margin-top:6px" id="uploadHint">圖片將以 base64 儲存於本機，不會上傳到網路。</div>
       </div>
     </div>
 
@@ -142,34 +123,35 @@
           </div>
           <div class="field">
             <label id="lblGrade">職階</label>
-            <select id="selectRank" disabled><option>銅牌</option><option>銀牌</option><option>金牌</option><option>白金</option><option>翡翠</option><option>王者</option></select>
+            <select id="selectRank" disabled>
+              <option>銅牌</option><option>銀牌</option><option>金牌</option>
+              <option>白金</option><option>翡翠</option><option>王者</option>
+            </select>
           </div>
         </div>
 
-       <!-- 個人資料：姓名/年級 之後新增一行放按鈕 -->
-<div class="field" id="profileActions" style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
-  <button class="btn tiny" id="btnApplyTop">套用</button>
-  <button class="btn tiny" id="btnResetTop">重置所有資料</button>
-</div>
+        <div class="field" id="profileActions" style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn tiny" id="btnApplyTop">套用</button>
+          <button class="btn tiny" id="btnResetTop">重置所有資料</button>
+        </div>
 
-        <!-- 技能面板 + 雷達圖 -->
         <div id="profileWrap">
           <div class="radarPanel">
             <h3 id="lblRadar">能力雷達圖</h3>
-            <canvas id="radar" width="420" height="350" aria-label="能力雷達圖"></canvas>
+            <canvas id="radar" width="420" height="350"></canvas>
           </div>
           <div id="profileSkills">
             <h3 id="lblSkillPanel">技能一覽</h3>
             <div id="profileSkillsList"></div>
           </div>
         </div>
-        <!-- 原本的 套用/重置 已移至上方姓名輸入框下方 -->
       </div>
     </div>
 
   </div>
 </div>
 
+<!-- 注意：改成 /app.js，保證 Vercel public 根目錄能抓到 -->
 <script type="module" src="/app.js"></script>
 </body>
 </html>
