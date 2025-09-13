@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>任務面板 MVP｜修正版 v1.1</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./styles/main.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>遊民任務面板</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/main.css">
 </head>
 <body>
 <div class="stage">
@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <!-- Mini notification -->
+    <!-- 通知 -->
     <div class="notifyMini">
       <span class="badge">!</span>
       <div class="ttl" id="ttlNotif">通知</div>
@@ -33,7 +33,7 @@
       <button class="langBtn" id="btnLang">中 / EN</button>
     </div>
 
-    <!-- 視圖：任務面板 -->
+    <!-- 任務面板 -->
     <div id="viewDashboard">
       <div class="cols">
         <div class="panel">
@@ -53,7 +53,7 @@
             <h2 id="hProblems">作題區</h2>
             <div id="problemBox" class="problemBox">
               <h3 id="problemTitle">請從右側任務選擇一題開始作答</h3>
-              <div id="problemBody" class="problemBody"></div>
+              <div id="problemBody"></div>
               <div id="problemExplain" class="msg"></div>
               <div id="problemMsg" class="msg"></div>
               <div class="problemActions">
@@ -64,12 +64,11 @@
           </div>
         </div>
 
+        <!-- 右側 -->
         <div style="display:grid;gap:12px">
           <div class="panel">
             <h2 id="hDaily">核心任務 <span class="sm" id="hDailySub">（每日 20:00 刷新）</span>
-              <span>
-                <button class="btn" id="btnRefreshDaily">刷新任務（卡 x<span id="cardCountA">0</span>）</button>
-              </span>
+              <span><button class="btn" id="btnRefreshDaily">刷新任務（卡 x<span id="cardCountA">0</span>）</button></span>
             </h2>
             <div id="tasks"></div>
           </div>
@@ -81,7 +80,7 @@
 
           <div class="panel">
             <h2 id="hShop">卡片 / 商城</h2>
-            <div class="sm" id="shopDesc">刷新卡可用於重新抽核心任務。升級與連續登入可獲得卡片。</div>
+            <div class="sm" id="shopDesc">刷新卡可用於重新抽核心任務。</div>
             <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
               <button class="btn" id="btnBuy1">買刷新卡 x1（100 金幣）</button>
               <button class="btn" id="btnBuy5">買刷新卡 x5（450 金幣）</button>
@@ -91,50 +90,42 @@
       </div>
     </div>
 
-    <!-- 視圖：角色介面 -->
+    <!-- 角色介面 -->
     <div id="viewCharacter" class="hidden">
       <div class="charStage">
-        <div class="charRing"></div>
         <div class="charWrap" id="charWrap">
           <img id="avatarImg" class="avatar hidden" alt="角色圖片"/>
-          <svg id="avatarSVG" class="avatar" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"></svg>
+          <svg id="avatarSVG" class="avatar" viewBox="0 0 256 256"></svg>
         </div>
       </div>
-      <div class="panel uploadPanel" style="margin-top:8px">
+      <div class="panel uploadPanel">
         <h2 id="hUpload">上傳角色圖片</h2>
         <div class="field"><label id="lblChoose">選擇圖片</label><input type="file" id="avatarInput" accept="image/*"/></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn" id="btnApplyAvatar">套用至角色介面</button>
-          <button class="btn" id="btnClearAvatar">移除自訂圖片</button>
+          <button class="btn" id="btnApplyAvatar">套用</button>
+          <button class="btn" id="btnClearAvatar">移除</button>
         </div>
-        <div class="sm" style="opacity:.8;margin-top:6px" id="uploadHint">圖片將以 base64 儲存於本機，不會上傳到網路。</div>
       </div>
     </div>
 
-    <!-- 視圖：個人資料 -->
+    <!-- 個人資料 -->
     <div id="viewSettings" class="hidden">
       <div class="panel">
         <h2 id="hProfile">個人資料</h2>
         <div class="meta" id="metaSettings"></div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:8px">
-          <div class="field">
-            <label id="lblName">姓名</label>
-            <input id="inputName" placeholder="" />
-          </div>
-          <div class="field">
-            <label id="lblGrade">職階</label>
+        <div style="display:grid;gap:8px;margin-top:8px">
+          <div class="field"><label id="lblName">姓名</label><input id="inputName" /></div>
+          <div class="field"><label id="lblGrade">職階</label>
             <select id="selectRank" disabled>
               <option>銅牌</option><option>銀牌</option><option>金牌</option>
               <option>白金</option><option>翡翠</option><option>王者</option>
             </select>
           </div>
         </div>
-
-        <div class="field" id="profileActions" style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+        <div class="field" id="profileActions" style="margin-top:8px;display:flex;gap:8px">
           <button class="btn tiny" id="btnApplyTop">套用</button>
-          <button class="btn tiny" id="btnResetTop">重置所有資料</button>
+          <button class="btn tiny" id="btnResetTop">重置</button>
         </div>
-
         <div id="profileWrap">
           <div class="radarPanel">
             <h3 id="lblRadar">能力雷達圖</h3>
@@ -151,7 +142,6 @@
   </div>
 </div>
 
-<!-- 注意：改成 /app.js，保證 Vercel public 根目錄能抓到 -->
 <script type="module" src="/app.js"></script>
 </body>
 </html>
