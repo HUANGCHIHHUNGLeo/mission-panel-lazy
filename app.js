@@ -154,7 +154,7 @@ function ensureSkills(){ gradeSkillsKeys.forEach(k=>{ if(!DB.skills[k]) DB.skill
 let dailyPool=[], sidePool=[];
 async function loadTasks(){
   const [coreRes, dailyRes] = await Promise.all([
-    fetch('/tasks/core.json'), fetch('/tasks/daily.json')
+    fetch('/core.json'), fetch('/daily.json')
   ]);
   const [core, daily] = await Promise.all([coreRes.json(), dailyRes.json()]);
   dailyPool = core;
