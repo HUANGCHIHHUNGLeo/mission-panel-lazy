@@ -13,7 +13,7 @@ function rankFor(level){
 
 const DEFAULT_DB={
   lang:'zh',
-  me:{name:'',title:'遊民',cls:'銅牌',level:1,exp:0,coins:200,avatarImg:null},
+  me:{name:'',title:'職業',cls:'銅牌',level:1,exp:0,coins:200,avatarImg:null},
   cards:{refresh:2},
   login:{streak:0,last:0},
   notifs:['歡迎來到學習任務面板！'],
@@ -201,7 +201,7 @@ function renderTop(){
 function renderMeta(){
   meta.innerHTML='';
   const need = needFor(DB.me.level); const pct = Math.max(0,Math.min(100,Math.round((DB.me.exp/need)*100)));
-  [[DB.lang==='zh'?'姓名':'Name',DB.me.name||'-'],[DB.lang==='zh'?'遊民':'Homeless',DB.me.title],[DB.lang==='zh'?'職階':'Rank',DB.me.cls||'銅牌'],['Lv.',DB.me.level]].forEach(([k,v])=>{
+  [[DB.lang==='zh'?'姓名':'Name',DB.me.name||'-'],[DB.lang==='zh'?'':'Homeless',DB.me.title],[DB.lang==='zh'?'職階':'Rank',DB.me.cls||'銅牌'],['Lv.',DB.me.level]].forEach(([k,v])=>{
     const d=document.createElement('div'); d.innerHTML=`<span>${k}</span><strong>${v}</strong>`; meta.appendChild(d)
   });
   const tip = `${Math.floor(DB.me.exp)}/${need}`; charXP.dataset.w=pct; charXPNum.textContent=pct+'%';
